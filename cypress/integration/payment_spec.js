@@ -9,7 +9,10 @@ describe("payment", () => {
     cy.findByRole("button", { name: /sign in/i }).click();
 
     // check account balance
-    // click on pay button
+    let oldBalance;
+    cy.get("[data-test=sidenav-user-balance]").then(($balance) => (oldBalance = $balance.text()));
+
+    // click on new button
     // search for user
     // add amount and note and click pay
     // return to transactions
