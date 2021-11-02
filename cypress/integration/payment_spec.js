@@ -36,7 +36,10 @@ describe("payment", () => {
 
     // click on payment (force cypress to click on an element hidden below another element)
     cy.findByText(note).click({ force: true });
+
     // verify if payment was made
+    cy.findByText(`-$${paymentAmount}`).should("be.visible");
+    cy.findByText(note).should("be.visible");
     // verify if payment amount was deducted
   });
 });
