@@ -1,3 +1,5 @@
+const { v4: uuidv4 } = require("uuid");
+
 describe("payment", () => {
   it("user can make payment", () => {
     /* login
@@ -20,9 +22,20 @@ describe("payment", () => {
     cy.findByText(/devon becker/i).click();
 
     // add amount and note and click pay
+    const paymentAmount = "5.00";
+    cy.findByPlaceholderText(/amount/i).type(paymentAmount);
+    const note = uuidv4();
+    cy.findByPlaceholderText(/add a note/i).type(note);
+    cy.findByRole("button", { name: /pay/i }).click();
+
     // return to transactions
+    cy.findByRole("button", { name: /return to transactions/i }).click();
+
     // go to personal payments
-    // click on payment
+    cy.findByRole("tab", { name: /mine/i }).click();
+
+    // click on payment (force cypress to click on an element hidden below another element)
+    cy.findByText(note).click({ force: true });
     // verify if payment was made
     // verify if payment amount was deducted
   });
